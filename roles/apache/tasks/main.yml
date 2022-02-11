@@ -1,17 +1,13 @@
 - name: Install apache web server
   become: true
   yum:
-    name: '{{ item }}'
-    state: present
-  with_items:
-  - httpd
-  - php
-  - php-mysql
-  - git
+    name: ['httpd', 'php', 'php-mysql', 'git']
 
 - name: Change Directory Index index.html to index.php to make the php page the default page
   become: true
+  warn: false
   shell: sed -i 's/index.html/index.php/g' /etc/httpd/conf/httpd.conf
+
 
 - name: Start httpd
   service: 
@@ -24,4 +20,5 @@
 
 - name: Update index.php
   become: true
+  warn: false
   shell: sed -i 's/172.20.1.101/192.168.0.111/g' /var/www/html/index.php
