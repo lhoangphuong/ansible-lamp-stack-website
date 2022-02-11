@@ -1,0 +1,28 @@
+- name: Install firewalld
+  yum: 
+    name: firewalld
+    state: present
+
+- name: Start firewalld
+  service: 
+    name: firewalld 
+    enabled: yes
+    state: started 
+
+- name: Configure firewall for Apache
+  firewalld: 
+    port: 80/tcp
+    zone: public
+    permanent: yes
+    state: enabled
+    when: 'apache' in role_names
+  notify: firewalld reload
+
+- name: Configure firewall for Database
+  firewalld: 
+    port: 3306/tcp
+    zone: public
+    permanent: yes
+    state: enabled
+    when: 'apache' in role_names
+  notify: firewalld reload
