@@ -1,0 +1,13 @@
+-
+  name: deploy database
+  hosts: mariadb
+  roles: 
+    - firewalld
+    - mariadb
+
+-
+  name: deploy webserver
+  hosts: webserver
+  roles: 
+    - firewalld
+    - apache
