@@ -10,19 +10,21 @@
     state: started 
 
 - name: Configure firewall for Apache
+  become: true
   firewalld: 
     port: 80/tcp
     zone: public
     permanent: yes
     state: enabled
-    when: 'apache' in role_names
+  when: "'apache' in role_names"
   notify: firewalld reload
 
 - name: Configure firewall for Database
+  become: true
   firewalld: 
     port: 3306/tcp
     zone: public
     permanent: yes
     state: enabled
-    when: 'apache' in role_names
+  when: "'mariadb' in role_names"
   notify: firewalld reload
