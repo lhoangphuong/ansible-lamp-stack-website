@@ -1,7 +1,11 @@
 - name: Install apache web server
   become: true
   yum:
-    name: ['httpd', 'php', 'php-mysql', 'git']
+    name: 
+    - httpd 
+    - php 
+    - php-mysql
+    - git
 
 - name: Change Directory Index index.html to index.php to make the php page the default page
   become: true
